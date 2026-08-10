@@ -49,6 +49,9 @@ app.get("/", async (_req, res) => {
 
 app.get("/healthz", (_req, res) => res.json({ ok: true }));
 
+// Wallet linking / claim page at a clean /link path (also reachable as /link.html via static).
+app.get("/link", (_req, res) => res.sendFile(path.join(__dirname, "..", "public", "link.html")));
+
 // ---------------- Reward accrual (called by the DayZ mod) ----------------
 app.post("/reward", verifySecret, ipAllowlist, rateLimit, async (req, res) => {
   try {
