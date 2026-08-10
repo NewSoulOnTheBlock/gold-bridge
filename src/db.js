@@ -5,14 +5,18 @@ import pg from "pg";
 const { Pool } = pg;
 
 // Render Postgres requires SSL. Local dev without DATABASE_URL will throw on first query (intended).
+// All tables live in a dedicated `goldbridge` schema so this service can safely share a Postgres
+// instance with other projects without any table-name collisions.
 export const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: process.env.DATABASE_URL && !process.env.DATABASE_URL.includes("localhost")
     ? { rejectUnauthorized: false }
     : false,
+  options: "-c search_path=goldbridge,public",
 });
 
 export async function initSchema() {
+  await pool.query(`CREATE SCHEMA IF NOT EXISTS goldbridge;`);
   await pool.query(`
     CREATE TABLE IF NOT EXISTS events (
       event_id    TEXT PRIMARY KEY,
