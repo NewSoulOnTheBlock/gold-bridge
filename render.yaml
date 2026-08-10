@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: gold-bridge
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /healthz
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: gold-bridge-db
+          property: connectionString
+      - key: CHAIN_ID
+        value: "4663"
+      - key: RPC_URL
+        value: https://rpc.mainnet.chain.robinhood.com
+      - key: TOKEN_ADDRESS
+        value: "0xC99C8D7C4fA25a7459F78b9Fbb4c66deeD18E9bF"
+      - key: DAILY_CAP
+        value: "500"
+      - key: SHARED_SECRET
+        sync: false
+      - key: TREASURY_PRIVATE_KEY
+        sync: false
+      - key: PUBLIC_BASE_URL
+        sync: false
+
+databases:
+  - name: gold-bridge-db
+    plan: free

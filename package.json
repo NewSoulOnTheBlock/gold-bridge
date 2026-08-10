@@ -1,0 +1,19 @@
+{
+  "name": "gold-bridge",
+  "version": "1.0.0",
+  "description": "Bridge web service between the DayZ Robinhood server and the $GOLD ERC-20 on Robinhood Chain",
+  "type": "module",
+  "main": "src/index.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "check": "node --check src/index.js && node --check src/db.js && node --check src/chain.js && node --check src/middleware.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "pg": "^8.13.1",
+    "viem": "^2.21.55"
+  }
+}
