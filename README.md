@@ -7,6 +7,12 @@ chain id `4663`, token `0xC99C8D7C4fA25a7459F78b9Fbb4c66deeD18E9bF`, 18 decimals
 does the on-chain transfer. Model is **accrue-and-claim**: `/reward` credits an off-chain ledger,
 tokens move only when a player `/claim`s.
 
+## Repo layout
+This repo holds both halves of the project:
+- **`/` (root)** — the bridge web service (Node/Express + viem). Render deploys from here.
+- **`/dayz-mod`** — the `@GoldReward` DayZ server-side mod source + build tooling. See `dayz-mod/README.md`.
+  Signing keys and built PBOs are gitignored (never committed).
+
 ## Endpoints
 | Method | Path | Auth | Purpose |
 |---|---|---|---|

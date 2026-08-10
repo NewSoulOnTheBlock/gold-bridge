@@ -1,3 +1,13 @@
 node_modules/
 .env
 *.log
+
+# DayZ mod: never commit signing keys or build artifacts
+dayz-mod/_keys/
+dayz-mod/build/addons/
+dayz-mod/build/keys/
+dayz-mod/build_stage/
+*.pbo
+*.bisign
+*.biprivatekey
+config.bin
