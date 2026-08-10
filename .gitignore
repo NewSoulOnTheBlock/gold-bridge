@@ -2,6 +2,10 @@ node_modules/
 .env
 *.log
 
+# web (Privy link app) build artifacts
+web/node_modules/
+web/dist/
+
 # DayZ mod: never commit signing keys or build artifacts
 dayz-mod/_keys/
 dayz-mod/build/addons/

@@ -19,7 +19,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 app.set("trust proxy", 1);
 app.use(express.json({ limit: "8kb" }));
-app.use(express.static(path.join(__dirname, "..", "public")));
+// Serve the built Privy link/claim React app under /link.
+app.use("/link", express.static(path.join(__dirname, "..", "web", "dist")));
 
 const PUBLIC_BASE_URL = (process.env.PUBLIC_BASE_URL ?? "").replace(/\/$/, "");
 const DAILY_CAP = Number(process.env.DAILY_CAP ?? 500);
@@ -49,8 +50,10 @@ app.get("/", async (_req, res) => {
 
 app.get("/healthz", (_req, res) => res.json({ ok: true }));
 
-// Wallet linking / claim page at a clean /link path (also reachable as /link.html via static).
-app.get("/link", (_req, res) => res.sendFile(path.join(__dirname, "..", "public", "link.html")));
+// Runtime config for the front end (Privy App ID set/rotated via env, no rebuild needed).
+app.get("/config.json", (_req, res) =>
+  res.json({ privyAppId: process.env.PRIVY_APP_ID || "", chainId: RH_CHAIN.id, tokenSymbol: "GOLD" })
+);
 
 // ---------------- Reward accrual (called by the DayZ mod) ----------------
 app.post("/reward", verifySecret, ipAllowlist, rateLimit, async (req, res) => {

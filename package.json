@@ -9,6 +9,7 @@
   },
   "scripts": {
     "start": "node src/index.js",
+    "build": "npm --prefix web install --no-audit --no-fund && npm --prefix web run build",
     "check": "node --check src/index.js && node --check src/db.js && node --check src/chain.js && node --check src/middleware.js"
   },
   "dependencies": {
